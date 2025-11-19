@@ -9,7 +9,7 @@ export default function CVApp({ Component, pageProps }: AppProps) {
         <title>Tamir Madar · CV</title>
         <meta
           name="description"
-          content="Sleek, responsive viewer for Tamir Madar's CV."
+          content="Viewer for Tamir Madar's CV."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

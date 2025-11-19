@@ -102,6 +102,24 @@ a {
   color: rgba(255, 255, 255, 0.75);
 }
 
+.contact {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-decoration-thickness: 1px;
+}
+
+.contact a:hover,
+.contact a:focus-visible {
+  text-decoration-color: rgba(255, 255, 255, 0.9);
+}
+
 .cv-card__actions {
   display: flex;
   gap: 0.75rem;

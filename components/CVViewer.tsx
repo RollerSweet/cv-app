@@ -11,9 +11,13 @@ const CVViewer = () => {
       <header className="cv-card__header">
         <div>
           <p className="eyebrow">Tamir Madar</p>
-          <h1>Curriculum Vitae</h1>
+          <h1>CV Resume</h1>
           <p className="tagline">
             A concise, interactive overview of Tamir&apos;s experience.
+          </p>
+          <p className="contact">
+            <a href="mailto:me@tamirmadar.com">me@tamirmadar.com</a> ·{' '}
+            <a href="mailto:tamirmadar5@gmail.com">tamirmadar5@gmail.com</a>
           </p>
         </div>
 
