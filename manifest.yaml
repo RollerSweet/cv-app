@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cv-app
+  labels:
+    app: cv-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cv-app
+  template:
+    metadata:
+      labels:
+        app: cv-app
+    spec:
+      containers:
+        - name: cv-app
+          image: rollersweet/tamir-cv:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "32Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cv-app
+  labels:
+    app: cv-app
+spec:
+  type: ClusterIP
+  selector:
+    app: cv-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cv-app
+  labels:
+    app: cv-app
+spec:
+  rules:
+    - host: cv.tamirmadar.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cv-app
+                port:
+                  number: 80
