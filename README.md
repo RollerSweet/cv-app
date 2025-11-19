@@ -45,3 +45,17 @@ docker compose up --build
 ```
 
 This will build the image and serve the site on port 3000.
+
+### Multi-architecture images
+
+Running on ARM-based clusters (like Raspberry Pi / k3s) requires publishing an image for that CPU architecture. The Dockerfile is now multi-arch aware, so you can create and push a manifest with BuildKit:
+
+```bash
+docker buildx create --name multi --use --bootstrap   # once, if you don’t have a builder
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t rollersweet/tamir-cv:latest \
+  --push .
+```
+
+After the push, update your Deployment to pull the newly published tag.
