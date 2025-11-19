@@ -1,11 +1,7 @@
-import { useState } from 'react';
-
 const PDF_PATH = '/Tamir_Madar_CV.pdf';
-const PDF_VIEW_PARAMS = '#toolbar=0&navpanes=0&scrollbar=0&view=Fit';
+const PDF_VIEW_PARAMS = '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
 
 const CVViewer = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
   return (
     <section className="cv-card">
       <header className="cv-card__header">
@@ -37,19 +33,24 @@ const CVViewer = () => {
       </header>
 
       <div className="cv-card__viewer" aria-live="polite">
-        {!isLoaded && (
-          <div className="cv-card__loading">
-            <span className="spinner" aria-hidden="true" />
-            <p>Preparing preview...</p>
-          </div>
-        )}
-        <iframe
-          title="Tamir Madar CV"
-          src={`${PDF_PATH}${PDF_VIEW_PARAMS}`}
-          className={`cv-card__iframe ${isLoaded ? 'is-visible' : ''}`}
-          onLoad={() => setIsLoaded(true)}
-          loading="lazy"
-        />
+        <object
+          data={`${PDF_PATH}${PDF_VIEW_PARAMS}`}
+          type="application/pdf"
+          className="cv-card__embed"
+        >
+          <iframe
+            title="Tamir Madar CV"
+            src={`${PDF_PATH}${PDF_VIEW_PARAMS}`}
+            className="cv-card__fallback"
+          />
+          <p className="cv-card__fallback-text">
+            Your browser can&apos;t display embedded PDFs.{' '}
+            <a href={PDF_PATH} target="_blank" rel="noreferrer">
+              Open the file
+            </a>{' '}
+            instead.
+          </p>
+        </object>
       </div>
     </section>
   );
